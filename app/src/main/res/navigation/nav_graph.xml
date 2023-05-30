@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MainActivity">
+
+    <fragment
+        android:id="@+id/MainActivity"
+        android:name="com.example.myapplication.MainActivity"
+        android:label="@string/main_activity_label"
+        tools:layout="@layout/activity_main">
+
+        <action
+            android:id="@+id/action_MainActivity_to_SearchActivity"
+            app:destination="@id/SearchActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/SearchActivity"
+        android:name="com.example.myapplication.SearchActivity"
+        android:label="@string/search_activity_label"
+        tools:layout="@layout/activity_search">
+
+        <action
+            android:id="@+id/action_SearchActivity_to_MainActivity"
+            app:destination="@id/MainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/LoginActivity"
+        android:name="com.example.myapplication.LoginActivity"
+        android:label="@string/login_activity_label"
+        tools:layout="@layout/activity_login">
+
+        <action
+            android:id="@+id/action_LoginActivity_to_MainActivity"
+            app:destination="@id/MainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/SignUpActivity"
+        android:name="com.example.myapplication.SignUpActivity"
+        android:label="@string/signup_activity_label"
+        tools:layout="@layout/activity_sign_up">
+
+        <action
+            android:id="@+id/action_SignUpActivity_to_LoginActivity"
+            app:destination="@id/LoginActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/EmailVerificationActivity"
+        android:name="com.example.myapplication.EmailVerificationActivity"
+        android:label="@string/email_verification_activity_label"
+        tools:layout="@layout/activity_email_verification">
+
+        <action
+            android:id="@+id/action_EmailVerificationActivity_to_LoginActivity"
+            app:destination="@id/LoginActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/AccountActivity"
+        android:name="com.example.myapplication.AccountActivity"
+        android:label="@string/account_activity_label"
+        tools:layout="@layout/activity_account">
+
+        <action
+            android:id="@+id/action_AccountActivity_to_MainActivity"
+            app:destination="@id/MainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/VerificationActivity"
+        android:name="com.example.myapplication.VerificationActivity"
+        android:label="@string/verification_activity_label"
+        tools:layout="@layout/activity_verification">
+
+        <action
+            android:id="@+id/action_VerificationActivity_to_LoginActivity"
+            app:destination="@id/LoginActivity" />
+    </fragment>
+
+
+
+
+</navigation>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_backarrow"
+            android:contentDescription="Back"
+            android:scaleType="centerInside"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/welcome_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="24sp"
+            android:text="Welcome" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/login_line_above"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/topLayout"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_line_above"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp"
+        android:text="Login" />
+
+    <View
+        android:id="@+id/login_line_below"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/login_button"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/add_products_button"
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/login_line_below"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:text="Add Products"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/add_products_line_below"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/add_products_button"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/previously_added_button"
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/add_products_line_below"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:text="Previously Added Products"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/previously_added_line_below"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/previously_added_button"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/edit_account_button"
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/previously_added_line_below"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:text="Edit Account" />
+
+    <View
+        android:id="@+id/edit_account_line_below"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/edit_account_button"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/edit_account_line_below"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:text="Delete Account" />
+
+    <View
+        android:id="@+id/delete_line_below"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/delete_button"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/delete_line_below"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp"
+        android:text="Logout" />
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/home_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:contentDescription="Home"
+            android:scaleType="centerInside"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:id="@+id/account_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_account"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:contentDescription="Account"
+            android:scaleType="centerInside"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>
