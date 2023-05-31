@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
@@ -36,6 +38,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -56,6 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
+    private Calendar calendar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +82,17 @@ public class SignUpActivity extends AppCompatActivity {
         mDobEditText = findViewById(R.id.date_of_birth_edit_text);
         mSignUpButton = findViewById(R.id.sign_up_button);
         mDisplayNameEditText = findViewById(R.id.display_name_edit_text);
-        CheckBox accountTypeCheckbox = findViewById(R.id.account_type_checkbox);
+        CheckBox accountTypeCheckbox = findViewById(R.id.seller_account_checkbox);
+        calendar = Calendar.getInstance();
+
+        updateDobEditText();
+
+        mDobEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,4 +183,35 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+    private void showDatePickerDialog() {
+        // Create a DatePickerDialog with initial date set to the current date
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                SignUpActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Update the calendar with the selected date
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        // Update the EditText with the selected date
+                        updateDobEditText();
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
+    }
+
+    private void updateDobEditText() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(calendar.getTime());
+        mDobEditText.setText(formattedDate);
+    }
 }
+

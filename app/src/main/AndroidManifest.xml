@@ -59,6 +59,9 @@
         <activity android:name=".ProductHistoryActivity"
             android:parentActivityName=".MainActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".ForgotActivity"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordInput;
     private Button mLoginButton;
     private Button mSignUpButton;
+    private Button mForgotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordInput = findViewById(R.id.password_input);
         mLoginButton = findViewById(R.id.login_button);
         mSignUpButton = findViewById(R.id.signup_button);
+        mForgotButton = findViewById(R.id.forgot_button);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +85,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Start the signup activity
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+        mForgotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
                 startActivity(intent);
             }
         });

@@ -13,10 +13,9 @@ public class User {
     public User() {
     }
 
-    public User(String email, String phoneNumber, String password, String firstName, String lastName, String dateOfBirth, String displayName, boolean isSellerAccount) {
+    public User(String email, String phoneNumber, String firstName, String lastName, String dateOfBirth, String displayName, boolean isSellerAccount) {
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -48,13 +47,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getFirstName() {
         return firstName;

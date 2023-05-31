@@ -34,6 +34,18 @@
         android:text="Login" />
 
     <Button
+        android:id="@+id/forgot_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:minHeight="48dp"
+        android:onClick="openForgotActivity"
+        android:text="Forgot Password"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <Button
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,9 +53,10 @@
         android:background="@android:color/transparent"
         android:minHeight="48dp"
         android:onClick="openSignUpActivity"
-        android:text="Don't have an account? Create an account"
+        android:text="Create an account"
         android:textColor="@android:color/black"
         android:textSize="14sp" />
+
 
 
 </LinearLayout>

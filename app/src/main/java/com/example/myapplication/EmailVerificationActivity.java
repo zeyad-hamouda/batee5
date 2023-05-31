@@ -67,7 +67,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                                             Toast.makeText(EmailVerificationActivity.this, "Registration successful! Please check your email for verification.", Toast.LENGTH_LONG).show();
 
                                                             String userId = user.getUid();
-                                                            User newUser = new User(email, phoneNumber, password, firstName, lastName, dob, displayName, isSellerAccount);                                                            mDatabase.child(userId).setValue(newUser);
+                                                            User newUser = new User(email, phoneNumber, firstName, lastName, dob, displayName, isSellerAccount);                                                            mDatabase.child(userId).setValue(newUser);
 
                                                             Intent intent = new Intent(EmailVerificationActivity.this, LoginActivity.class);
                                                             startActivity(intent);
