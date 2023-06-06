@@ -4,16 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.myapplication.Product;
 import com.example.myapplication.R;
-
 
 import java.util.List;
 
@@ -36,10 +32,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.productNameTextView.setText(product.getName());
-        Glide.with(holder.itemView)
-                .load(product.getImageUrl())
-                .placeholder(R.drawable.placeholder)
-                .into(holder.productImageView);
     }
 
     @Override
@@ -49,12 +41,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         public TextView productNameTextView;
-        public ImageView productImageView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             productNameTextView = itemView.findViewById(R.id.productNameTextView);
-            productImageView = itemView.findViewById(R.id.productImageView);
         }
     }
 }

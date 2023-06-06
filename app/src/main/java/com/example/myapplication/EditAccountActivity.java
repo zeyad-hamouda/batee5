@@ -30,7 +30,6 @@ public class EditAccountActivity extends AppCompatActivity {
     private EditText mLastNameEditText;
     private EditText mDobEditText;
     private Button mSaveButton;
-    // ...
 
     private DatabaseReference mDatabase;
 

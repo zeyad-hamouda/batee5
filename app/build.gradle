@@ -44,6 +44,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'org.jsoup:jsoup:1.16.1'
+    implementation 'org.apache.commons:commons-text:1.9'
     implementation 'com.google.firebase:firebase-appcheck:17.0.0'
     implementation 'com.google.firebase:firebase-appcheck-debug:17.0.0'
     implementation 'com.google.firebase:firebase-database'
