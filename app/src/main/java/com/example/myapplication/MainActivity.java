@@ -42,14 +42,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchEditText.setOnClickListener(new View.OnClickListener() {
+        searchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                // Launch the search activity
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    // Launch the search activity
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +63,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
-
 

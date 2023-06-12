@@ -7,7 +7,7 @@
         android:id="@+id/id_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:hint="ID"
         android:inputType="text" />
 
@@ -16,8 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_edit_text"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:hint="Name"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/lowercase_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_edit_text"
+        android:layout_margin="14dp"
+        android:hint="Lowercase Name"
         android:inputType="text" />
 
     <EditText
@@ -25,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name_edit_text"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:hint="Description"
         android:inputType="text" />
 
@@ -34,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/description_edit_text"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:hint="Price A"
         android:inputType="numberDecimal" />
 
@@ -43,17 +51,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/price_a_edit_text"
-        android:layout_margin="16dp"
+        android:layout_margin="14dp"
         android:hint="Price B"
         android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/category_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/price_b_edit_text"
+        android:layout_margin="14dp"
+        android:hint="Category"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/select_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/price_b_edit_text"
+        android:layout_below="@id/lowercase_name_edit_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:text="Select Image" />
 
     <ImageView
@@ -62,7 +79,7 @@
         android:layout_height="200dp"
         android:layout_below="@id/select_image_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:scaleType="centerCrop" />
 
     <Button
@@ -71,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/selected_image_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:text="Add Product" />
 
 </RelativeLayout>

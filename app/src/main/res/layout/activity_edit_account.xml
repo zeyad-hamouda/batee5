@@ -5,37 +5,80 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Account Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Email"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone Number" />
 
     <EditText
         android:id="@+id/phone_number_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone Number" />
+        android:hint="Phone Number"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Name" />
 
     <EditText
         android:id="@+id/first_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name" />
+        android:hint="First Name"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Name" />
 
     <EditText
         android:id="@+id/last_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name" />
+        android:hint="Last Name"
+        android:textIsSelectable="false" />
 
-    <EditText
-        android:id="@+id/date_of_birth_edit_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date of Birth" />
+        android:orientation="horizontal">
 
-    <!-- Add any other EditText fields for additional account details -->
+        <CheckBox
+            android:id="@+id/sellerAccountCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seller Account" />
+
+        <CheckBox
+            android:id="@+id/customerAccountCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Account" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/save_button"

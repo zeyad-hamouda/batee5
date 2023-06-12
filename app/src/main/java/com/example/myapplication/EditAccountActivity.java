@@ -3,15 +3,18 @@ package com.example.myapplication;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +31,8 @@ public class EditAccountActivity extends AppCompatActivity {
     private EditText mPhoneNumberEditText;
     private EditText mFirstNameEditText;
     private EditText mLastNameEditText;
-    private EditText mDobEditText;
+    private CheckBox mSellerAccountCheckBox;
+    private CheckBox mCustomerAccountCheckBox;
     private Button mSaveButton;
 
     private DatabaseReference mDatabase;
@@ -38,14 +42,13 @@ public class EditAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
 
-        // Initialize the EditText fields
         mEmailEditText = findViewById(R.id.email_edit_text);
         mPhoneNumberEditText = findViewById(R.id.phone_number_edit_text);
         mFirstNameEditText = findViewById(R.id.first_name_edit_text);
         mLastNameEditText = findViewById(R.id.last_name_edit_text);
-        mDobEditText = findViewById(R.id.date_of_birth_edit_text);
+        mSellerAccountCheckBox = findViewById(R.id.sellerAccountCheckBox);
+        mCustomerAccountCheckBox = findViewById(R.id.customerAccountCheckBox);
         mSaveButton = findViewById(R.id.save_button);
-        // ...
 
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
@@ -67,8 +70,7 @@ public class EditAccountActivity extends AppCompatActivity {
                             mPhoneNumberEditText.setText(user.getPhoneNumber());
                             mFirstNameEditText.setText(user.getFirstName());
                             mLastNameEditText.setText(user.getLastName());
-                            mDobEditText.setText(user.getDateOfBirth());
-                            // ...
+                            mSellerAccountCheckBox.setChecked(user.isSellerAccount());
                         }
                     }
                 }
@@ -84,9 +86,28 @@ public class EditAccountActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmationDialog();
+                if (validateFields()) {
+                    showConfirmationDialog();
+                } else {
+                    Toast.makeText(EditAccountActivity.this, "Please fill all the fields.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        // Disable text selection in EditText fields
+        disableTextSelection(mEmailEditText);
+        disableTextSelection(mPhoneNumberEditText);
+        disableTextSelection(mFirstNameEditText);
+        disableTextSelection(mLastNameEditText);
+    }
+
+    private boolean validateFields() {
+        String email = mEmailEditText.getText().toString().trim();
+        String phoneNumber = mPhoneNumberEditText.getText().toString().trim();
+        String firstName = mFirstNameEditText.getText().toString().trim();
+        String lastName = mLastNameEditText.getText().toString().trim();
+
+        return !email.isEmpty() && !phoneNumber.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty();
     }
 
     private void showConfirmationDialog() {
@@ -122,7 +143,7 @@ public class EditAccountActivity extends AppCompatActivity {
         String phoneNumber = mPhoneNumberEditText.getText().toString().trim();
         String firstName = mFirstNameEditText.getText().toString().trim();
         String lastName = mLastNameEditText.getText().toString().trim();
-        String dob = mDobEditText.getText().toString().trim();
+        boolean isSellerAccount = mSellerAccountCheckBox.isChecked();
 
         // Update the account details in authentication (FirebaseAuth) if needed
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -134,7 +155,7 @@ public class EditAccountActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Email update successful
                                 // Continue with updating the account details in the realtime database
-                                updateAccountDetailsInDatabase(email, phoneNumber, firstName, lastName, dob);
+                                updateAccountDetailsInDatabase(email, phoneNumber, firstName, lastName, isSellerAccount);
                             } else {
                                 // Email update failed
                                 Toast.makeText(EditAccountActivity.this, "Failed to update email.", Toast.LENGTH_SHORT).show();
@@ -144,28 +165,78 @@ public class EditAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void updateAccountDetailsInDatabase(String email, String phoneNumber, String firstName, String lastName, String dob) {
+    private void updateAccountDetailsInDatabase(String email, String phoneNumber, String firstName, String lastName, boolean isSellerAccount) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Update the account details in the realtime database (users node)
-            User updatedUser = new User(email, phoneNumber, firstName, lastName, dob);
-            mDatabase.child(userId).setValue(updatedUser)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                // Account details update successful
-                                Toast.makeText(EditAccountActivity.this, "Account details updated successfully.", Toast.LENGTH_SHORT).show();
-                                finish(); // Close the activity and return to the previous screen
-                            } else {
-                                // Account details update failed
-                                Toast.makeText(EditAccountActivity.this, "Failed to update account details.", Toast.LENGTH_SHORT).show();
-                            }
+            // Retrieve the existing user data from the database
+            mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Get the existing user object from the snapshot
+                        User existingUser = snapshot.getValue(User.class);
+                        if (existingUser != null) {
+                            // Update the specific fields with the new values
+                            existingUser.setEmail(email);
+                            existingUser.setPhoneNumber(phoneNumber);
+                            existingUser.setFirstName(firstName);
+                            existingUser.setLastName(lastName);
+                            existingUser.setSellerAccount(isSellerAccount);
+
+                            // Update the modified user object in the database
+                            mDatabase.child(userId).setValue(existingUser)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Account details update successful
+                                                Toast.makeText(EditAccountActivity.this, "Account details updated successfully.", Toast.LENGTH_SHORT).show();
+                                                finish(); // Close the activity and return to the previous screen
+                                            } else {
+                                                // Account details update failed
+                                                Toast.makeText(EditAccountActivity.this, "Failed to update account details.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                         }
-                    });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle the database read error
+                    Toast.makeText(EditAccountActivity.this, "Failed to retrieve account details.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
-}
 
+
+    private void disableTextSelection(EditText editText) {
+        editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+        });
+
+        editText.setLongClickable(false);
+        editText.setTextIsSelectable(false);
+    }
+}

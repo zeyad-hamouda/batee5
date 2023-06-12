@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class User {
     private String email;
     private String phoneNumber;
@@ -9,9 +13,12 @@ public class User {
     private String dateOfBirth;
     private String displayName;
     private boolean isSellerAccount;
-
+    private HashMap<String, Boolean> viewedProductIds;
     public User() {
+        // Initialize viewedProductIds as an empty HashMap
+        this.viewedProductIds = new HashMap<>();
     }
+
 
     public User(String email, String phoneNumber, String firstName, String lastName, String dateOfBirth, String displayName, boolean isSellerAccount) {
         this.email = email;
@@ -22,13 +29,21 @@ public class User {
         this.displayName = displayName;
         this.isSellerAccount = isSellerAccount;
     }
-
-    public User(String email, String phoneNumber, String firstName, String lastName, String dob) {
+    public User(String email, String phoneNumber, String firstName, String lastName, boolean isSellerAccount, HashMap<String, Boolean> viewedProductIds) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dob;
+        this.isSellerAccount = isSellerAccount;
+        this.viewedProductIds = viewedProductIds;
+    }
+
+    public User(String email, String phoneNumber, String firstName, String lastName, boolean isSellerAccount) {
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isSellerAccount = isSellerAccount;
     }
 
     public String getEmail() {
@@ -81,4 +96,14 @@ public class User {
     }
     public boolean isSellerAccount(){ return isSellerAccount;}
     public void isSellerAccount(boolean isSellerAccount){this.isSellerAccount = isSellerAccount;}
+    public HashMap<String, Boolean> getViewedProductIds() {
+        return viewedProductIds;
+    }
+    public void setSellerAccount(boolean sellerAccount) {
+        isSellerAccount = sellerAccount;
+    }
+
+    public void setViewedProductIds(HashMap<String, Boolean> viewedProductIds) {
+        this.viewedProductIds = viewedProductIds;
+    }
 }
