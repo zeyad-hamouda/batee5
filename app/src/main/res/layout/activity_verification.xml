@@ -12,24 +12,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Email Verification"
-        android:textSize="20sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/verification_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="A verification email has been sent to your email address. Please check your inbox and click on the verification link to proceed."
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/resend_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Resend Verification Email" />
-
-
+        android:layout_marginTop="24dp"
+        android:text="Resend Verification Email"
+        android:textSize="16sp" />
 
 </LinearLayout>

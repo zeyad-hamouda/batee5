@@ -52,6 +52,7 @@ public class AccountActivity extends AppCompatActivity {
         mProductHistory = findViewById(R.id.previously_added_button);
         mBackButton = findViewById(R.id.back_button);
 
+
         accountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

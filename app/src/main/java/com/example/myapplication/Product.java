@@ -7,6 +7,7 @@ public class Product {
     private String id;
     private String imageUrl;
     private String category;
+    private double price;
     private ArrayList<String> viewerUserIds;
 
     public Product() {
@@ -31,6 +32,7 @@ public class Product {
 
         return name;
     }
+
 
     public String getImageUrl() {
 

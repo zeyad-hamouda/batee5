@@ -32,6 +32,28 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/recommendationsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchLayout"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/recommendationsViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/indicatorsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:scrollbars="horizontal"
+            android:visibility="visible" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomLayout"
@@ -39,7 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
-
 
         <ImageButton
             android:id="@+id/home_button"
@@ -64,7 +85,6 @@
             android:contentDescription="Account"
             android:scaleType="centerInside"
             android:layout_gravity="center" />
-
 
     </LinearLayout>
 

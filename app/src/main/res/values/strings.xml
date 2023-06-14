@@ -19,5 +19,23 @@
     <string name="sign_up">Sign Up</string>
     <string name="action_search">Search</string>
 
+    <string name="category_prompt">Select Category</string>
+    <string-array name="category_options">
+        <item>Select Category</item>
+        <item>laptop</item>
+        <item>home appliances</item>
+        <item>smartphones</item>
+        <item>TV screens and Projectors</item>
+        <item>camera</item>
+        <item>tablet</item>
+        <item>console</item>
+        <item>PC</item>
+        <item>car accessory</item>
+        <item>gaming accessory</item>
+        <item>furniture</item>
+    </string-array>
+
+
+
 
 </resources>

@@ -95,7 +95,6 @@ public class User {
         this.displayName = displayName;
     }
     public boolean isSellerAccount(){ return isSellerAccount;}
-    public void isSellerAccount(boolean isSellerAccount){this.isSellerAccount = isSellerAccount;}
     public HashMap<String, Boolean> getViewedProductIds() {
         return viewedProductIds;
     }

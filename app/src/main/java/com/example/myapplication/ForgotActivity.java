@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class ForgotActivity extends AppCompatActivity {
     private EditText mEmailEditText;
     private Button mResetButton;
     private FirebaseAuth mAuth;
+    private ImageView mCloseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ForgotActivity extends AppCompatActivity {
 
         mEmailEditText = findViewById(R.id.email_edit_text);
         mResetButton = findViewById(R.id.reset_button);
+        mCloseButton = findViewById(R.id.closeButton);
 
         mResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +45,16 @@ public class ForgotActivity extends AppCompatActivity {
                     resetPassword(email);
                     Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 }
+            }
+        });
+
+        mCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
@@ -61,3 +73,4 @@ public class ForgotActivity extends AppCompatActivity {
                 });
     }
 }
+

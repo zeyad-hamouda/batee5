@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
     private Button mSignUpButton;
     private Button mForgotButton;
+    private ImageView mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mSignUpButton = findViewById(R.id.signup_button);
         mForgotButton = findViewById(R.id.forgot_button);
+        mBackButton = findViewById(R.id.backButton);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +91,22 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         mForgotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, ForgotActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, AccountActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
             }
         });
     }

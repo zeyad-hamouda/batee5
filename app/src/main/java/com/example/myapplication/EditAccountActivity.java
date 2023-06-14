@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +37,7 @@ public class EditAccountActivity extends AppCompatActivity {
     private CheckBox mSellerAccountCheckBox;
     private CheckBox mCustomerAccountCheckBox;
     private Button mSaveButton;
+
 
     private DatabaseReference mDatabase;
 
@@ -99,6 +103,15 @@ public class EditAccountActivity extends AppCompatActivity {
         disableTextSelection(mPhoneNumberEditText);
         disableTextSelection(mFirstNameEditText);
         disableTextSelection(mLastNameEditText);
+
+        // Set the back button listener
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishWithSlideAnimation();
+            }
+        });
     }
 
     private boolean validateFields() {
@@ -193,7 +206,7 @@ public class EditAccountActivity extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 // Account details update successful
                                                 Toast.makeText(EditAccountActivity.this, "Account details updated successfully.", Toast.LENGTH_SHORT).show();
-                                                finish(); // Close the activity and return to the previous screen
+                                                finishWithSlideAnimation(); // Close the activity and return to the previous screen with slide animation
                                             } else {
                                                 // Account details update failed
                                                 Toast.makeText(EditAccountActivity.this, "Failed to update account details.", Toast.LENGTH_SHORT).show();
@@ -212,7 +225,6 @@ public class EditAccountActivity extends AppCompatActivity {
             });
         }
     }
-
 
     private void disableTextSelection(EditText editText) {
         editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
@@ -238,5 +250,10 @@ public class EditAccountActivity extends AppCompatActivity {
 
         editText.setLongClickable(false);
         editText.setTextIsSelectable(false);
+    }
+
+    private void finishWithSlideAnimation() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

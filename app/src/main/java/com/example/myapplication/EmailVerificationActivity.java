@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button mVerifyButton;
     private DatabaseReference mDatabase;
+    private ImageView mCloseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
         boolean isSellerAccount = getIntent().getBooleanExtra("isSellerAccount", false);
 
         mVerifyButton = findViewById(R.id.verify_button);
+        mCloseButton = findViewById(R.id.closeButton);
+
         mVerifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +71,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                                             Toast.makeText(EmailVerificationActivity.this, "Registration successful! Please check your email for verification.", Toast.LENGTH_LONG).show();
 
                                                             String userId = user.getUid();
-                                                            User newUser = new User(email, phoneNumber, firstName, lastName, dob, displayName, isSellerAccount);                                                            mDatabase.child(userId).setValue(newUser);
+                                                            User newUser = new User(email, phoneNumber, firstName, lastName, dob, displayName, isSellerAccount);
+                                                            mDatabase.child(userId).setValue(newUser);
 
                                                             Intent intent = new Intent(EmailVerificationActivity.this, LoginActivity.class);
                                                             startActivity(intent);
@@ -85,6 +90,15 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         });
             }
         });
+
+        mCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmailVerificationActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
     }
 }
-

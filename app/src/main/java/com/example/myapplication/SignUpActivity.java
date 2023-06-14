@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -62,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String mVerificationId;
     private Calendar calendar;
+    private ImageView mBackButton;
 
 
     @Override
@@ -84,6 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
         mDisplayNameEditText = findViewById(R.id.display_name_edit_text);
         CheckBox accountTypeCheckbox = findViewById(R.id.seller_account_checkbox);
         calendar = Calendar.getInstance();
+        mBackButton = findViewById(R.id.backButton);
 
         updateDobEditText();
 
@@ -91,6 +94,15 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
+            }
+        });
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, AccountActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
             }
         });
 
@@ -183,6 +195,11 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+    public void openLoginActivity(View view) {
+        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+
     private void showDatePickerDialog() {
         // Create a DatePickerDialog with initial date set to the current date
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -213,5 +230,6 @@ public class SignUpActivity extends AppCompatActivity {
         String formattedDate = dateFormat.format(calendar.getTime());
         mDobEditText.setText(formattedDate);
     }
+
 }
 

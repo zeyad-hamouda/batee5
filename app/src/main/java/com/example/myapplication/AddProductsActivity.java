@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,10 +36,10 @@ public class AddProductsActivity extends AppCompatActivity {
     private EditText descriptionEditText;
     private EditText priceAEditText;
     private EditText priceBEditText;
-    private EditText categoryEditText; // New field for product category
+    private Spinner categorySpinner;
     private Button selectImageButton;
-    private ImageView selectedImageView;
     private Button addProductButton;
+    private ImageView closeButton;
 
     private Uri imageUri;
 
@@ -45,7 +47,6 @@ public class AddProductsActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private FirebaseAuth mAuth;
     private EditText lowercaseNameEditText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +58,11 @@ public class AddProductsActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.description_edit_text);
         priceAEditText = findViewById(R.id.price_a_edit_text);
         priceBEditText = findViewById(R.id.price_b_edit_text);
-        categoryEditText = findViewById(R.id.category_edit_text); // Initialize the category field
+        categorySpinner = findViewById(R.id.category_spinner);
         selectImageButton = findViewById(R.id.select_image_button);
-        selectedImageView = findViewById(R.id.selected_image_view);
         addProductButton = findViewById(R.id.add_product_button);
         lowercaseNameEditText = findViewById(R.id.lowercase_name_edit_text);
-
+        closeButton = findViewById(R.id.closeButton);
 
         firestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -81,6 +81,17 @@ public class AddProductsActivity extends AppCompatActivity {
                 addProduct();
             }
         });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        // Hide the "Add Product" button initially
+        addProductButton.setVisibility(View.GONE);
     }
 
     private void openImagePicker() {
@@ -96,7 +107,12 @@ public class AddProductsActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            selectedImageView.setImageURI(imageUri);
+            // Update the selected image view
+
+            // Hide the "Add Image" button
+            selectImageButton.setVisibility(View.GONE);
+            // Show the "Add Product" button
+            addProductButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -106,12 +122,16 @@ public class AddProductsActivity extends AppCompatActivity {
         String description = descriptionEditText.getText().toString().trim();
         String priceA = priceAEditText.getText().toString().trim();
         String priceB = priceBEditText.getText().toString().trim();
-        String category = categoryEditText.getText().toString().trim(); // Retrieve the category value
+        String category = categorySpinner.getSelectedItem().toString();
         String lowercaseName = lowercaseNameEditText.getText().toString().trim().toLowerCase();
 
-
-        if (id.isEmpty() || name.isEmpty() || description.isEmpty() || priceA.isEmpty() || priceB.isEmpty() || category.isEmpty() || imageUri == null) {
+        if (id.isEmpty() || name.isEmpty() || description.isEmpty() || priceA.isEmpty() || priceB.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (category.equals(getString(R.string.category_prompt))) {
+            Toast.makeText(this, "Please choose a category", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -135,6 +155,7 @@ public class AddProductsActivity extends AppCompatActivity {
                                     productData.put("category", category); // Add category to the product data
                                     productData.put("image", imageUrl.toString());
                                     productData.put("userId", userId);
+                                    productData.put("lowercaseName", lowercaseName);
 
                                     firestore.collection("productA").document(id)
                                             .set(productData, SetOptions.merge())
@@ -181,15 +202,20 @@ public class AddProductsActivity extends AppCompatActivity {
                 });
     }
 
-
     private void clearFields() {
         idEditText.setText("");
         nameEditText.setText("");
         descriptionEditText.setText("");
         priceAEditText.setText("");
         priceBEditText.setText("");
-        categoryEditText.setText(""); // Clear the category field
-        selectedImageView.setImageURI(null);
+        categorySpinner.setSelection(0); // Clear the category field
         imageUri = null;
+        lowercaseNameEditText.setText("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

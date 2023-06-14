@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,13 +26,17 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity implements ProductAdapter.OnProductClickListener {
 
     private EditText searchEditText;
-    private FirebaseFirestore db;
+    private RecyclerView searchRecyclerView;
+    private ImageButton backButton;
     private ProductAdapter productAdapter;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +44,17 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
         setContentView(R.layout.activity_search);
 
         searchEditText = findViewById(R.id.searchEditText);
+        searchRecyclerView = findViewById(R.id.searchRecyclerView);
+        backButton = findViewById(R.id.backButton);
+
         db = FirebaseFirestore.getInstance();
         productAdapter = new ProductAdapter(new ArrayList<>());
-
-        RecyclerView searchRecyclerView = findViewById(R.id.searchRecyclerView);
-        searchRecyclerView.setAdapter(productAdapter);
-        searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         productAdapter.setOnProductClickListener(this);
 
+        searchRecyclerView.setAdapter(productAdapter);
+        searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        searchEditText.requestFocus();
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -82,8 +91,13 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
 
                 performQuery(productBQuery);
             }
+        });
 
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishWithSlideAnimation();
+            }
         });
     }
 
@@ -110,15 +124,21 @@ public class SearchActivity extends AppCompatActivity implements ProductAdapter.
         });
     }
 
+    private void finishWithSlideAnimation() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     @Override
     public void onProductClick(Product product) {
-        // Handle the product click event
-        // For example, start a new activity to show the product details
         Intent intent = new Intent(SearchActivity.this, ProductDetailsActivity.class);
         intent.putExtra("productName", product.getName());
         intent.putExtra("imageUrl", product.getImageUrl());
+        startActivityWithSlideAnimation(intent);
+    }
+
+    private void startActivityWithSlideAnimation(Intent intent) {
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }
-
-

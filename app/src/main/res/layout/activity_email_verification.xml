@@ -8,11 +8,21 @@
 
     <TextView
         android:id="@+id/title_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Verification"
-        android:textSize="24sp"
+        android:text="Verify Your Email"
+        android:textSize="32sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/title_text"
+        android:layout_alignBottom="@id/title_text"
+        android:layout_marginEnd="-347dp"
+        android:src="@drawable/ic_close" />
 
     <TextView
         android:id="@+id/instructions_text"
@@ -20,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Click the button below to send a verification email to your email address."
         android:layout_below="@id/title_text"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/verify_button"
@@ -28,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="Send Verification Email"
         android:layout_below="@id/instructions_text"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

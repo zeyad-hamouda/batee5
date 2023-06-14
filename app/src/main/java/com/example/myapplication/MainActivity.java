@@ -20,25 +20,27 @@ import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageButton homeButton;
+    private ImageButton accountButton;
+    private EditText searchEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton homeButton = findViewById(R.id.home_button);
-        ImageButton accountButton = findViewById(R.id.account_button);
-        EditText searchEditText = findViewById(R.id.searchEditText);
+        homeButton = findViewById(R.id.home_button);
+        accountButton = findViewById(R.id.account_button);
+        searchEditText = findViewById(R.id.searchEditText);
         FirebaseApp.initializeApp(this);
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
         firebaseAppCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance());
 
-
         accountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Launch the account activity
                 Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
+                startActivityWithSlideAnimation(intent);
             }
         });
 
@@ -46,21 +48,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
-                    // Launch the search activity
                     Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                    startActivity(intent);
+                    startActivityWithSlideAnimation(intent);
                 }
             }
         });
 
-
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+                // Do nothing as it is the current activity
             }
         });
     }
-}
 
+    private void startActivityWithSlideAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+}
